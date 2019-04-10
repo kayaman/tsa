@@ -18,4 +18,5 @@ Y = milk.ts / milk.MA
 plot( Y, ylab="scaled", main="Transformed Milk Data")
 acf(na.omit(Y), main="ACF of Transformed Data")
 acf(na.omit(Y), type="partial", main="PACF of Transformed Data")
-ar(na.omit(Y), order.max = 5)
+
+

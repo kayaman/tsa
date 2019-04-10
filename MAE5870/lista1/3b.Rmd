@@ -2,7 +2,9 @@
 title: "Lista 1 - Exercício 3 - item b"
 author: "Marco Antonio Gonzalez Junior / Rodrigo Beresca"
 date: "4/3/2019"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -12,16 +14,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 set.seed(666)
 
-noise <- rnorm(1000)
+noise <- rnorm(1000, 0, 1)
 
 t = 1
-Z <- rnorm(1)
+Z <- noise[t]
 
 t = 2
-Z[t] <- .3*Z[t-1] + rnorm(1)
+Z[t] <- .3*Z[t-1] + noise[t]
 
 for (t in 3:length(noise)) {
-  Z[t] <- .3*Z[t-1] - .585*Z[t-2] + rnorm(1)
+  Z[t] <- .3*Z[t-1] - .585*Z[t-2] + noise[t]
 }
 ```
 
