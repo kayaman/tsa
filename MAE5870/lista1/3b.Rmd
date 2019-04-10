@@ -1,0 +1,33 @@
+---
+title: "Lista 1 - Exercício 3 - item b"
+author: "Marco Antonio Gonzalez Junior / Rodrigo Beresca"
+date: "4/3/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+set.seed(666)
+
+noise <- rnorm(1000)
+
+t = 1
+Z <- rnorm(1)
+
+t = 2
+Z[t] <- .3*Z[t-1] + rnorm(1)
+
+for (t in 3:length(noise)) {
+  Z[t] <- .3*Z[t-1] - .585*Z[t-2] + rnorm(1)
+}
+```
+
+```{r, echo=FALSE}
+par(mfrow=c(3,1))
+ts.plot(Z)
+acf(Z, type = "correlation", plot = T, main = "ACF")
+acf(Z, type = "partial", plot = T, main = "PACF")
+```

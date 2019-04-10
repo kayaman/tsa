@@ -2,20 +2,28 @@
 # Zt = (1 - 1,2*B)(1 - 0,6*B)at  ==> Zt = at - 1,8at-1 + 0,72at-2 ==> MA(q), q=2 ==> MA(2)
 set.seed(666)
 
-noise <- rnorm(1000)
+N <- 1000
 
-t = 1
-Z <- rnorm(1)
+noise <- rnorm(N, 0, 1)
 
-t = 2
-Z[t] = rnorm(1) - 1.8*noise[t-1]
+theta.1 <- -1.8
+theta.2 <- .72
+
+Z <- noise[1]
+
+Z[2] = noise[2] + theta.1*Z[1]
 
 # t >= 3
-for (t in 3:length(noise)) {
-  Z[t] = rnorm(1) - 1.8*noise[t-1] + .72*noise[t-2]
+for (t in 3:N) {
+  Z[t] = noise[t] + theta.1*noise[t-1] + theta.2*noise[t-2]
 }
 
 par(mfrow=c(3,1))
+
 ts.plot(Z)
-acf(Z, type = "correlation", plot = T)
-acf(Z, type = "partial", plot = T)
+
+acf(Z, type = "correlation", plot = T, main = "Autocorrelation function", xaxt = 'n')
+axis(1, at = seq(0, 30), by = 1)
+
+acf(Z, type = "partial", plot = T, main = "Partial autocorrelation function", xaxt = 'n')
+axis(1, at = seq(0, 30), by = 1)
